@@ -66,20 +66,15 @@ VANTAGE/
 ## Analog Front-End Architecture
 
 ```
-                          ┌─────────────────────────────────────┐
-                          │           Path A (FFT)              │
-                          │  ┌─────────┐    ┌──────────────┐    │
-              ┌───────┐   │  │   PGA   │───▶│  LPF ~8kHz   │────┼───▶ ADC (PC0)
- Piezo ──▶   │ Buffer │───┼─▶│ 1×-128× │    │ (Anti-Alias) │    │
-              └───────┘   │  └─────────┘    └──────────────┘    │
-                          ├─────────────────────────────────────┤
-                          │         Path B (Envelope)           │
-                          │  ┌──────────┐   ┌──────────────┐    │
-                          └─▶│ HPF >2kHz│──▶│  Envelope    │────┼───▶ ADC (PB1)
-                             │          │   │  Detector    │    │
-                             └──────────┘   └──────────────┘    │
-                                                                │
-                          └─────────────────────────────────────┘
+                                            ┌──────────────┐
+                                       ┌───▶│  LPF ~8kHz   │────▶ ADC (PC0)
+                                       │    │ (Anti-Alias) │       Path A (FFT)
+              ┌───────┐   ┌─────────┐  │    └──────────────┘
+ Piezo ──▶   │ Buffer │──▶│   PGA   │──┤
+              └───────┘   │ 1×-128× │  │    ┌──────────┐   ┌──────────────┐
+                          └─────────┘  └───▶│ HPF >2kHz│──▶│  Envelope    │──▶ ADC (PB1)
+                                            └──────────┘   │  Detector    │    Path B (Envelope)
+                                                           └──────────────┘
 ```
 
 - **Path A (Spectral Analysis):** 2nd-order Sallen-Key LPF (~8 kHz cutoff) for FFT
@@ -130,7 +125,3 @@ VANTAGE/
 | **PCB Protection** | Acrylic conformal coating |
 | **Sealing** | Silicone gaskets |
 | **Operating Temp** | Up to 60°C |
-
-## License
-
-[Add your license here]
